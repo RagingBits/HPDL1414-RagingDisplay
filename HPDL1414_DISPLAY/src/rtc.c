@@ -119,10 +119,18 @@ rtc_result_t RtcInit(uint32_t res)
     else
     {
 
+        RCC_APB1PeriphResetCmd(RCC_APB1Periph_PWR | RCC_APB1Periph_BKP, DISABLE);
+
+        RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR | RCC_APB1Periph_BKP, ENABLE);
+
+        BKP_DeInit();
+        RTC_ITConfig(RTC_IT_ALR,DISABLE);
+
         /* Allow access to BKP Domain */
         PWR_BackupAccessCmd(ENABLE);
 
-        BKP_DeInit();
+
+
 
         RCC_LSICmd(DISABLE);
 

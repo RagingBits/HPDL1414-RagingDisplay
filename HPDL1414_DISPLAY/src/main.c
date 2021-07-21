@@ -28,7 +28,7 @@ int main(void)
     /* This delay ENSURES that if a blocking piece of code happens after this,
      * this delay will always grant about 5 seconds to reprograme the device before the
      * blocking bug kicks in after a reset. */
-    volatile uint32_t generic_use_value = 10000000;
+    volatile uint32_t generic_use_value = 0;//10000000;
     while(0U!=(generic_use_value--)){asm("NOP;");}
     /* DO NOT REMOVE WHILE DEVELOPING!!! *************************************************/
 
@@ -54,12 +54,13 @@ int main(void)
 	for(;;)
 	{
 
-	    generic_use_value = 8000;
+	    generic_use_value = 24000;
 	    while(0U!=(generic_use_value--))
 	    {
 
 
 	        /* Collect data from uart. */
+	        uart_read_amount = 100;
             Uart1Peek(&uart_data[0], &uart_read_amount,0);
 
             if(0U != uart_read_amount)
