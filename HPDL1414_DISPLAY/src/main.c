@@ -218,7 +218,7 @@ int main(void)
 
                             case AT_SET_LED:
                             {
-                                if(uart_data[0] == 0x30)
+                                if(uart_data[0] == 0x31)
                                 {
                                     if(uart_data[2] == 0x30)
                                     {
@@ -230,7 +230,7 @@ int main(void)
                                     }
                                 }
                                 else
-                                if(uart_data[0] == 0x31)
+                                if(uart_data[0] == 0x30)
                                 {
                                     if(uart_data[2] == 0x30)
                                     {
