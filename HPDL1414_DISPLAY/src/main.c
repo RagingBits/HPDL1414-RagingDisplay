@@ -28,7 +28,7 @@ int main(void)
     /* This delay ENSURES that if a blocking piece of code happens after this,
      * this delay will always grant about 5 seconds to reprograme the device before the
      * blocking bug kicks in after a reset. */
-    volatile uint32_t generic_use_value = 0;//10000000;
+    volatile uint32_t generic_use_value = 5000000;
     while(0U!=(generic_use_value--)){asm("NOP;");}
     /* DO NOT REMOVE WHILE DEVELOPING!!! *************************************************/
 
@@ -212,6 +212,9 @@ int main(void)
 
                                 uint32_t epoch = date_time_to_epoch(&timeData);
                                 RtcSet(&epoch);
+
+                                uart_read_amount = 3;
+                                Uart1Write("OK\n", &uart_read_amount);
                             }
                             break;
 
@@ -228,6 +231,8 @@ int main(void)
                                     {
                                         LED_WORK_SET_STATE(ON);
                                     }
+                                    uart_read_amount = 3;
+                                    Uart1Write("OK\n", &uart_read_amount);
                                 }
                                 else
                                 if(uart_data[0] == 0x30)
@@ -240,6 +245,8 @@ int main(void)
                                     {
                                         LED_ERROR_SET_STATE(ON);
                                     }
+                                    uart_read_amount = 3;
+                                    Uart1Write("OK\n", &uart_read_amount);
                                 }
                                 else
                                 {
