@@ -28,7 +28,7 @@ int main(void)
     /* This delay ENSURES that if a blocking piece of code happens after this,
      * this delay will always grant about 5 seconds to reprograme the device before the
      * blocking bug kicks in after a reset. */
-    volatile uint32_t generic_use_value = 5000000;
+    uint32_t generic_use_value = 5;//000000;
     while(0U!=(generic_use_value--)){asm("NOP;");}
     /* DO NOT REMOVE WHILE DEVELOPING!!! *************************************************/
 

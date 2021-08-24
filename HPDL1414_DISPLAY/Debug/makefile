@@ -29,29 +29,35 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: HPDL1414_DISPLAY.elf
+all: pre-build main-build
+
+# Main-build Target
+main-build: HPDL1414_DISPLAY.elf
 
 # Tool invocations
-HPDL1414_DISPLAY.elf: $(OBJS) $(USER_OBJS) D:\STUFF\work\STM32Workspace\HPDL1414_DISPLAY/LinkerScript.ld
+HPDL1414_DISPLAY.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU GCC Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -T"D:/STUFF/work/STM32Workspace/HPDL1414_DISPLAY/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "HPDL1414_DISPLAY.elf" @"objects.list" $(USER_OBJS) $(LIBS) -lm
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -T"D:/STUFF/work/STM32Workspace/HPDL1414_DISPLAY/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "HPDL1414_DISPLAY.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
-	-$(RM) *
+	-$(RM) $(EXECUTABLES)$(OBJS)$(S_UPPER_DEPS)$(C_DEPS) HPDL1414_DISPLAY.elf
+	-@echo ' '
+
+pre-build:
+	-echo "Start pre build."
 	-@echo ' '
 
 post-build:
 	-@echo 'Generating binary and Printing size information:'
-	arm-none-eabi-objcopy -O binary "HPDL1414_DISPLAY.elf" "HPDL1414_DISPLAY.bin"
-	arm-none-eabi-size "HPDL1414_DISPLAY.elf"
+	-arm-none-eabi-objcopy -O binary "HPDL1414_DISPLAY.elf" "HPDL1414_DISPLAY.bin"; arm-none-eabi-size -B "HPDL1414_DISPLAY.elf"
 	-@echo ' '
 
 .PHONY: all clean dependents
-.SECONDARY: post-build
+.SECONDARY: main-build pre-build post-build
 
 -include ../makefile.targets

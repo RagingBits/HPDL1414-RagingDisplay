@@ -14,7 +14,6 @@ OBJS += \
 startup/%.o: ../startup/%.s
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Assembler'
-	@echo $(PWD)
 	arm-none-eabi-as -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -I"D:/STUFF/work/STM32Workspace/HPDL1414_DISPLAY/StdPeriph_Driver/inc" -I"D:/STUFF/work/STM32Workspace/HPDL1414_DISPLAY/inc" -I"D:/STUFF/work/STM32Workspace/HPDL1414_DISPLAY/CMSIS/device" -I"D:/STUFF/work/STM32Workspace/HPDL1414_DISPLAY/CMSIS/core" -g -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '

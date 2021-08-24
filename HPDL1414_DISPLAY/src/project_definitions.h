@@ -58,6 +58,7 @@
 #define SYS_FREQ 8000000U
 
 #define UART_BAUDRATE 115200
+//#define UART_BAUDRATE 115200
 
 
 
